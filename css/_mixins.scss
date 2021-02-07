@@ -1,0 +1,56 @@
+@mixin heading-text() {
+    font-family: $font-family;
+    color: $veryDarkBlue;
+}
+
+@mixin body-text() {
+    font-family: $font-family;
+    font-weight: 400;
+    color: $grayishViolet;
+}
+
+@mixin reset-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+@mixin link-text($color) {
+    font-family: $font-family;
+    text-decoration: none;
+    
+    @if ($color == gr) {
+        color: $gray;
+    } @else if ($color == wh) {
+        color: $white;
+    }
+} 
+
+@keyframes menu-open {
+    0% {
+        transform: translate(-180%, 100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, 100%);
+        opacity: 1;
+    }
+}
+@keyframes menu-close {
+    0% {
+        transform: translate(-50%, 100%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-180%, 100%);
+        opacity: 0;
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(360deg);
+    }
+}

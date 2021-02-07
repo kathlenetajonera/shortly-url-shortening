@@ -1,0 +1,51 @@
+.footer {
+    padding: 3rem;
+    background-color: $veryDarkViolet;
+    text-align: center;
+
+    &__logo {
+        fill: $white;
+    }
+
+    &__menu-title {
+        font-family: $font-family;
+        font-weight: 500;
+        color: $white;
+    }
+
+    &__list {
+        @include reset-list();
+    }
+
+    &__item {
+        padding: .125rem 0;
+    }
+
+    &__link {
+        @include link-text(gr);
+    }
+
+    &__social-media {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__socmed {
+        margin: 0 .8rem;
+    }
+
+    &__socmed-icon {
+        color: $white;
+        font-size: 1.5rem;
+    }
+}
+
+.attribution {
+    font-family: $font-family;
+    font-size: 11px; 
+    text-align: center;
+    padding: 1rem 0;
+
+    a { color: hsl(228, 45%, 44%); }
+}

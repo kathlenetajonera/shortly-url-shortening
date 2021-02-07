@@ -1,0 +1,13 @@
+.banner {
+    padding: 5rem 2rem;
+    background-color: $darkViolet;
+    background-image: url("/images/bg-boost-mobile.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+
+    &__title {
+        @include heading-text();
+        color: $white;
+    }
+}

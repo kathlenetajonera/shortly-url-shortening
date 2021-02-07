@@ -1,0 +1,110 @@
+.navbar {
+    padding: 2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    $self: &;
+
+    &__logo {
+        display: block;
+    }
+
+    &__navicon {
+        cursor: pointer;
+
+        &--open {
+            #{ $self }__burger {
+                &:first-child {
+                    transform: rotate(45deg);
+                }
+    
+                &:nth-child(2) {
+                    opacity: 0;
+                }
+    
+                &:last-child {
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+
+    }
+
+    &__burger {
+        display: block;
+        width: 1.125rem;
+        height: .1875rem;
+        background-color: $grayishViolet;
+        margin-bottom: .1875rem;
+        border-radius: 1rem;
+        transition: .3s ease-in-out;
+
+        &:first-child {
+            transform-origin: 1px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+            transform-origin: 0;
+        }
+    }
+
+    &__menu {
+        display: none;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-180%, 100%);
+        background-color: $darkViolet;
+        width: 90%;
+        text-align: center;
+        padding: 1rem;
+        border-radius: .5rem;
+
+        &--open {
+            display: block;
+            animation: menu-open .5s forwards;
+        }
+
+        &--close {
+            display: block;
+            animation: menu-close .5s;
+        }
+    }
+
+    &__list {
+        @include reset-list();
+    }
+
+    &__item {
+        padding: .8rem 0;
+    }
+
+    &__link {
+        @include link-text(wh);
+        font-weight: 700;
+    }
+
+    // &--active {
+    //     #{ $self }__burger {
+    //         &:first-child {
+    //             transform: rotate(45deg);
+    //         }
+
+    //         &:nth-child(2) {
+    //             opacity: 0;
+    //         }
+
+    //         &:last-child {
+    //             transform: rotate(-45deg);
+    //         }
+    //     }
+
+    //     #{ $self }__menu {
+    //         visibility: visible;
+    //         opacity: 1;
+    //         transform: translate(-50%, 100%);
+    //     }
+    // }
+}
