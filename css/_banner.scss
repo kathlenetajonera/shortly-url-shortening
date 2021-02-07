@@ -6,8 +6,14 @@
     background-repeat: no-repeat;
     text-align: center;
 
+    @include media-query(tablet) {
+        padding: 3rem;
+        background-image: url("/images/bg-boost-desktop.svg");
+    }
+
     &__title {
         @include heading-text();
         color: $white;
+        margin-top: 0;
     }
 }

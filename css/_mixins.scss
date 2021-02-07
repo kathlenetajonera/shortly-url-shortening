@@ -1,12 +1,27 @@
+$mediaBreakpoints: (
+    mobile: 23.4375rem,
+    tablet: 48rem,
+    desktop-sm: 64rem,
+    desktop-md: 75rem
+);
+
+@mixin media-query($size) {
+    @media (min-width: map-get($mediaBreakpoints, $size)) {
+        @content;
+    }
+}
+
 @mixin heading-text() {
     font-family: $font-family;
     color: $veryDarkBlue;
+    cursor: default;
 }
 
 @mixin body-text() {
     font-family: $font-family;
     font-weight: 400;
     color: $grayishViolet;
+    cursor: default;
 }
 
 @mixin reset-list {

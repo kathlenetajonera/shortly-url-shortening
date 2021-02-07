@@ -3,29 +3,61 @@
     background-color: $lightGray;
     position: relative;
 
+    @include media-query(tablet) {
+        padding: 6rem 2.8rem 4rem;
+    }
+
     .shortened-links {
         &__item {
             padding: 1.5rem;
             background-color: $white;
             margin-bottom: 1.5rem;
             border-radius: .5rem;
+
+            @include media-query(tablet) {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: .5rem 1.5rem;
+            }
         }
 
         &__user-input {
             @include heading-text();
             font-weight: 500;
             margin: 0 0 .8rem;
+
+            @include media-query(tablet) {
+                flex: 2;
+                margin: 0;
+            }
         }
 
         &__divider {
             margin: 0;
             border-top: 1px solid $gray;
+
+            @include media-query(tablet) {
+                display: none;
+            }
+        }
+
+        &__wrapper {
+            @include media-query(tablet) {
+                display: flex;
+                align-items: center;
+            }
         }
 
         &__shortened-url {
             @include heading-text();
             color: $cyan;
             margin: .8rem 0;
+        }
+
+        .hidden {
+            position: absolute;
+            left: -1000px;
         }
     }
 }
@@ -37,6 +69,24 @@
     text-align: center;
     position: relative;
     z-index: 1;
+
+    @include media-query(tablet) {
+        text-align: left;
+    }
+
+    @include media-query(desktop-sm) {
+        &:first-child {
+            align-self: start;
+        }
+
+        &:nth-child(2) {
+            align-self: center;
+        }
+
+        &:nth-child(3) {
+            align-self: end;
+        }
+    }
 
     &__icon {
         background-color: $darkViolet;
@@ -50,6 +100,11 @@
         top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
+
+        @include media-query(tablet) {
+            left: 0;
+            transform: translate(30%, -50%);
+        }
     }
 
     &__title {
@@ -58,11 +113,15 @@
 
     &__desc {
         @include body-text();
+
+        @include media-query(tablet) {
+            font-size: .8rem;
+        }
     }
 }
 
 .line-bg {
-    width: 180%;
+    width: 45rem;
     height: .5rem;
     background-color: $cyan;
     position: absolute;
@@ -70,6 +129,11 @@
     left: 50%;
     transform: translate(-50%, -100%) rotate(90deg);
     z-index: 0;
+
+    @include media-query(tablet) {
+        width: 30rem;
+        transform: translate(-50%, -100%) rotate(0);
+    }
 }
 
 .loading {

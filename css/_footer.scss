@@ -3,14 +3,40 @@
     background-color: $veryDarkViolet;
     text-align: center;
 
+    &__logo-link {
+        width: 7.5625rem;
+        margin: 0 auto;
+
+        @include media-query(tablet) {
+            grid-column: span 3;
+        }
+
+        @include media-query(desktop-sm) {
+            grid-column: unset;
+            margin: 0;
+        }
+    }
+
     &__logo {
         fill: $white;
     }
 
+    &__menu {
+        @include media-query(desktop-sm) {
+            text-align: left;
+        }
+    }
+
     &__menu-title {
         font-family: $font-family;
-        font-weight: 500;
+        font-weight: 700;
         color: $white;
+        margin: 0 0 1rem;
+        cursor: default;
+
+        @include media-query(desktop-sm) {
+            font-size: .9rem;
+        }
     }
 
     &__list {
@@ -18,17 +44,29 @@
     }
 
     &__item {
-        padding: .125rem 0;
+        padding: .25rem 0;
     }
 
     &__link {
         @include link-text(gr);
+
+        @include media-query(desktop-sm) {
+            font-size: .9rem;
+        }
     }
 
     &__social-media {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @include media-query(tablet) {
+            grid-column: span 3;
+        }
+
+        @include media-query(desktop-sm) {
+            grid-column: unset;
+        }
     }
 
     &__socmed {

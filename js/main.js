@@ -5,15 +5,27 @@ const featuresContainer = document.querySelector(".features");
 const formField = document.querySelector(".form__field");
 const inputField = document.querySelector(".form__input");
 const submitBtn = document.querySelector(".button--form");
+const linksContainer = document.querySelector(".shortened-links");
+const savedURLs = [];
 
 //check if localStorage exists
-if (localStorage.getItem("url")) {
-    const savedURL = localStorage.getItem("url");
-    
-    displayLinks(savedURL, localStorage);
+if (localStorage.getItem("savedURLs")) {
+    const savedItem = JSON.parse(localStorage.getItem("savedURLs"));
+
+    savedItem.forEach(item => {
+        displayLinks(item.url, item)
+    })
 }
 
 navicon.addEventListener("click", toggleMobileNav);
+
+inputField.addEventListener("input", () => {
+    removeClass(inputField, "error");
+
+    if (inputField.nextElementSibling) {
+        inputField.nextElementSibling.remove();
+    }
+})
 
 submitBtn.addEventListener("click", e => {
     e.preventDefault();
@@ -30,6 +42,8 @@ const setAriaAttribute = (block, attr, bool) => block.setAttribute(attr, bool);
 const disableScrolling = () => document.body.style.position = "fixed";
 
 const enableScrolling = () => document.body.style.position = "";
+
+const clearInputField = () => inputField.value = ""; inputField.focus();
 
 function toggleMobileNav() {
     const isOpen = navicon.getAttribute("aria-expanded");
@@ -59,54 +73,33 @@ async function fetchData(url) {
     const shortLinks = await data.result;
 
     displayLinks(url, shortLinks);
+    clearInputField();
 }
 
 function displayLinks(url, data) {
     hideLoading();
 
-    const linksContainer = document.querySelector(".shortened-links");
     const shortLink = data.short_link;
-    const shortLink2 = data.short_link2;
-    const shortLink3 = data.short_link3;
-    const shortLinksMarkUp = `
-    <div class="shortened-links">
-        <div class="shortened-links__item">
-            <p class="shortened-links__user-input">${url}</p>
-            <hr class="shortened-links__divider">
+    const shortLinkMarkUp = `
+    <div class="shortened-links__item">
+        <p class="shortened-links__user-input">${url}</p>
+        <hr class="shortened-links__divider">
 
-            <div class="shortened-links__wrapper">
-                <p class="shortened-links__shortened-url">${shortLink}</p>
-                <button class="button button--copy">Copy</button>
-            </div>
+        <div class="shortened-links__wrapper">
+            <p class="shortened-links__shortened-url">${shortLink}</p>
+            <button class="button button--copy" onclick="copyURL(this)">Copy</button>
         </div>
-        <div class="shortened-links__item">
-            <p class="shortened-links__user-input">${url}</p>
-            <hr class="shortened-links__divider">
-
-            <div class="shortened-links__wrapper">
-                <p class="shortened-links__shortened-url">${shortLink2}</p>
-                <button class="button button--copy">Copy</button>
-            </div>
-        </div>
-        <div class="shortened-links__item">
-            <p class="shortened-links__user-input">${url}</p>
-            <hr class="shortened-links__divider">
-
-            <div class="shortened-links__wrapper">
-                <p class="shortened-links__shortened-url">${shortLink3}</p>
-                <button class="button button--copy">Copy</button>
-            </div>
-        </div>
-    </div>    
+    </div>
     `
-    //if the container already exists, remove from DOM and generate a new container
-    if (linksContainer != null) {
-        featuresContainer.removeChild(linksContainer);
+
+    if (linksContainer.childElementCount < 3) {
+        linksContainer.insertAdjacentHTML("afterbegin", shortLinkMarkUp);
+    } else {
+        linksContainer.lastElementChild.remove();
+        linksContainer.insertAdjacentHTML("afterbegin", shortLinkMarkUp);
     }
 
-    featuresContainer.insertAdjacentHTML("afterbegin", shortLinksMarkUp);
-
-    saveToStorage(url, shortLink, shortLink2, shortLink3);
+    saveToStorage(url, shortLink);
 }
 
 function addClass(elem, className) {
@@ -153,9 +146,33 @@ function hideLoading () {
     }
 }
 
-function saveToStorage(url, link1, link2, link3) {
-    localStorage.setItem("url", url);
-    localStorage.setItem("short_link", link1);
-    localStorage.setItem("short_link2", link2);
-    localStorage.setItem("short_link3", link3);
+function saveToStorage(url, shortLink) {
+    let savedURL = {
+        url: url,
+        short_link: shortLink
+    }
+
+    savedURLs.push(savedURL);
+    localStorage.setItem("savedURLs", JSON.stringify(savedURLs));
+}
+
+function copyURL(selectedBtn) {
+    const shortLink = selectedBtn.previousElementSibling.textContent;
+    const inputElem = document.createElement("input");
+
+    inputElem.className = "hidden"
+    inputElem.value = shortLink;
+
+    linksContainer.appendChild(inputElem)
+
+    inputElem.select();
+    document.execCommand("copy");
+
+    addClass(selectedBtn, "copied");
+    selectedBtn.textContent = "Copied!"
+
+    setTimeout(() => {
+        removeClass(selectedBtn, "copied");
+        selectedBtn.textContent = "Copy";
+    }, 1500)
 }

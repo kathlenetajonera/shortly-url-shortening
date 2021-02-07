@@ -1,6 +1,14 @@
 .hero {
     padding: 2rem 1.5rem 10rem;
 
+    @include media-query(tablet) {
+        padding: 2rem 2.8rem 10rem;
+    }
+
+    @include media-query(desktop-md) {
+        padding: 2rem 0 10rem;
+    }
+
     &__image {
         max-width: 155%;
     }

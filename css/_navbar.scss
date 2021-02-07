@@ -6,6 +6,14 @@
     position: relative;
     $self: &;
 
+    @include media-query(tablet) {
+        padding: 2rem 2.8rem;
+    }
+
+    @include media-query(desktop-md) {
+        padding: 2rem 0;
+    }
+
     &__logo {
         display: block;
     }
@@ -29,6 +37,9 @@
             }
         }
 
+        @include media-query(tablet) {
+            display: none;
+        }
     }
 
     &__burger {
@@ -71,40 +82,48 @@
             display: block;
             animation: menu-close .5s;
         }
+
+        @include media-query(tablet) {
+            position: unset;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: none;
+            background-color: transparent;
+        }
     }
 
     &__list {
         @include reset-list();
+
+        @include media-query(tablet) {
+            display: flex;
+            align-items: center;
+        }
     }
 
     &__item {
         padding: .8rem 0;
+
+        @include media-query(tablet) {
+            padding: 0 .5rem;
+        }
     }
 
     &__link {
         @include link-text(wh);
         font-weight: 700;
+
+        @include media-query(tablet) {
+            color: $grayishViolet;
+            font-size: .9rem;
+            font-weight: 600;
+        }
     }
 
-    // &--active {
-    //     #{ $self }__burger {
-    //         &:first-child {
-    //             transform: rotate(45deg);
-    //         }
-
-    //         &:nth-child(2) {
-    //             opacity: 0;
-    //         }
-
-    //         &:last-child {
-    //             transform: rotate(-45deg);
-    //         }
-    //     }
-
-    //     #{ $self }__menu {
-    //         visibility: visible;
-    //         opacity: 1;
-    //         transform: translate(-50%, 100%);
-    //     }
-    // }
+    &__divider {
+        @include media-query(tablet) {
+            display: none;
+        } 
+    }
 }
