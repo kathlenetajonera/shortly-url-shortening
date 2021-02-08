@@ -2,6 +2,7 @@
     padding: 3rem;
     background-color: $veryDarkViolet;
     text-align: center;
+    $self: &;
 
     &__logo-link {
         width: 7.5625rem;
@@ -50,6 +51,10 @@
     &__link {
         @include link-text(gr);
 
+        &:hover {
+            color: $cyan;
+        }
+
         @include media-query(desktop-sm) {
             font-size: .9rem;
         }
@@ -73,9 +78,24 @@
         margin: 0 .8rem;
     }
 
+    &__socmed-link {
+        display: block;
+        
+        &:hover {
+            #{ $self }__socmed-icon {
+                color: $cyan;
+            }
+        }
+    }
+
     &__socmed-icon {
         color: $white;
         font-size: 1.5rem;
+    }
+
+    &__sr-only {
+        position: absolute;
+        left: -2000px;
     }
 }
 

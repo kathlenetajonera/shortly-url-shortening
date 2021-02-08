@@ -75,12 +75,12 @@
 
         &--open {
             display: block;
-            animation: menu-open .5s forwards;
+            animation: menu-open .3s forwards;
         }
 
         &--close {
             display: block;
-            animation: menu-close .5s;
+            animation: menu-close .3s;
         }
 
         @include media-query(tablet) {
@@ -90,6 +90,7 @@
             align-items: center;
             transform: none;
             background-color: transparent;
+            padding: 1rem 0 1rem 2rem;
         }
     }
 
@@ -107,6 +108,10 @@
 
         @include media-query(tablet) {
             padding: 0 .5rem;
+
+            &:last-child {
+                padding-right: 0;
+            }
         }
     }
 
@@ -114,14 +119,26 @@
         @include link-text(wh);
         font-weight: 700;
 
+        &:hover {
+            color: $gray;
+        }
+
         @include media-query(tablet) {
             color: $grayishViolet;
             font-size: .9rem;
             font-weight: 600;
+
+            &:hover {
+                color: $veryDarkViolet;
+            }
         }
     }
 
     &__divider {
+        border: none;
+        height: 1px;
+        background-color: $gray;
+
         @include media-query(tablet) {
             display: none;
         } 

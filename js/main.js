@@ -6,7 +6,10 @@ const formField = document.querySelector(".form__field");
 const inputField = document.querySelector(".form__input");
 const submitBtn = document.querySelector(".button--form");
 const linksContainer = document.querySelector(".shortened-links");
+const footerLogo = document.querySelector(".footer__logo-link");
 const savedURLs = [];
+
+let windowWidth = window.innerWidth;
 
 //check if localStorage exists
 if (localStorage.getItem("savedURLs")) {
@@ -33,7 +36,26 @@ submitBtn.addEventListener("click", e => {
     if (inputField.value) {
         fetchData(inputField.value);
     } else {
-        displayError();
+        displayError("empty");
+    }
+});
+
+footerLogo.addEventListener("click", e => {
+    e.preventDefault();
+
+    smoothScroll(".navbar");
+});
+
+window.addEventListener("resize", () => {
+    if (windowWidth != window.innerWidth) {
+        windowWidth = window.innerWidth;
+
+        if (windowWidth > 768) {
+            setAriaAttribute(navicon, "aria-expanded", "false");
+            removeClass(mobileMenu, "open");
+            removeClass(navicon, "open");
+            enableScrolling();
+        }
     }
 });
 
@@ -72,8 +94,13 @@ async function fetchData(url) {
     const data = await response.json();
     const shortLinks = await data.result;
 
-    displayLinks(url, shortLinks);
-    clearInputField();
+    if (data.error_code === 2) {
+        hideLoading();
+        displayError("invalid")
+    } else {
+        displayLinks(url, shortLinks);
+        clearInputField();
+    }
 }
 
 function displayLinks(url, data) {
@@ -122,13 +149,19 @@ function removeClass(elem, className) {
     elem.classList.remove(`${blockName}--${className}`);
 }
 
-function displayError() {
+function displayError(errType) {
     addClass(inputField, "error");
 
     if (formField.childElementCount < 2) {
-        formField.insertAdjacentHTML("beforeend", `
-        <p class="form__error-text">Please add a link</p>
-        `)
+        if (errType === "empty") {
+            formField.insertAdjacentHTML("beforeend", `
+            <p class="form__error-text">Please add a link</p>
+            `)
+        } else if (errType === "invalid") {
+            formField.insertAdjacentHTML("beforeend", `
+            <p class="form__error-text">Invalid url. Please try again.</p>
+            `)
+        }
     }
 }
 
@@ -175,4 +208,35 @@ function copyURL(selectedBtn) {
         removeClass(selectedBtn, "copied");
         selectedBtn.textContent = "Copy";
     }, 1500)
+}
+
+function smoothScroll(target) {
+    const targetSection = document.querySelector(target);
+    const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    let duration = 1000;
+    let startTime;
+
+    function animation(currentTime) {
+        if (startTime === undefined)  startTime = currentTime;
+
+        const timeElapsed = currentTime - startTime;
+        let animate = ease(timeElapsed, startPosition, distance, duration);
+
+        window.scrollTo(0, animate);
+
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animation)
+        }
+    }
+
+    function ease(t, b, c, d) {
+        t /= d/2;
+        if (t < 1) return c/2*t*t + b;
+        t--;
+        return -c/2 * (t*(t-2) - 1) + b;
+    };
+
+    requestAnimationFrame(animation);
 }

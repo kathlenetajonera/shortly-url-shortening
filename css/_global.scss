@@ -104,11 +104,12 @@ body {
         @include body-text();
 
         &--hero {
-            margin: 1rem 0 1.5rem;
+            margin: 1rem auto 1.5rem;
+            width: Min(30rem, 100%);
 
             @include media-query(desktop-sm) {
                 font-size: 1.1rem;
-                width: 95%;
+                margin: 1rem 0 1.5rem;
             }
         }
 
@@ -163,8 +164,9 @@ body {
 
     &--copy {
         @include media-query(tablet) {
-            padding: .5rem 2rem;
+            padding: .5rem 1rem;
             margin-left: 1.5rem;
+            width: 6.25rem;
         }
     }
 
@@ -198,7 +200,7 @@ body {
 
     @include media-query(tablet) {
         grid-template-columns: 2fr .5fr;
-        padding: 2.5rem;
+        padding: 3rem;
 
         background-image: url("/images/bg-shorten-desktop.svg");
         background-position: center top;
@@ -214,6 +216,7 @@ body {
 
         @include media-query(tablet) {
             padding: 1rem;
+            font-size: 1rem;
         }
 
         &--error {
