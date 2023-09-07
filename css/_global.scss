@@ -161,6 +161,20 @@ body {
     }
 
     &--form {
+        span {
+            display: block;
+        }
+
+        &.is-loading {
+            .spinner {
+                display: block;
+            }
+
+            span {
+                display: none;
+            }
+        }
+
         @include media-query(tablet) {
             padding: 0.5rem 1rem;
         }
@@ -243,5 +257,55 @@ body {
         @include media-query(tablet) {
             position: absolute;
         }
+    }
+}
+
+.spinner {
+    display: none;
+    margin: 0 auto;
+    text-align: center;
+
+    & > div {
+        width: 0.88rem;
+        height: 0.88rem;
+        background-color: #fff;
+        border-radius: 100%;
+        display: inline-block;
+        -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    }
+
+    .bounce1 {
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+    }
+
+    .bounce2 {
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+    }
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+    }
+    40% {
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes sk-bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
     }
 }

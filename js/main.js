@@ -180,20 +180,11 @@ function displayError(errType) {
 }
 
 function showLoading() {
-    featuresContainer.insertAdjacentHTML(
-        "afterbegin",
-        `
-    <div class="loading"></div> 
-    `
-    );
+    submitBtn.classList.add("is-loading");
 }
 
 function hideLoading() {
-    const loading = document.querySelector(".loading");
-
-    if (loading) {
-        featuresContainer.removeChild(loading);
-    }
+    submitBtn.classList.remove("is-loading");
 }
 
 function saveToStorage(url, shortLink) {
