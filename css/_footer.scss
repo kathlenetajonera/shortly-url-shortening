@@ -36,7 +36,7 @@
         cursor: default;
 
         @include media-query(desktop-sm) {
-            font-size: .9rem;
+            font-size: 0.9rem;
         }
     }
 
@@ -45,18 +45,19 @@
     }
 
     &__item {
-        padding: .25rem 0;
+        padding: 0.25rem 0;
     }
 
     &__link {
         @include link-text(gr);
+        transition: color 0.3s ease;
 
         &:hover {
             color: $cyan;
         }
 
         @include media-query(desktop-sm) {
-            font-size: .9rem;
+            font-size: 0.9rem;
         }
     }
 
@@ -75,12 +76,12 @@
     }
 
     &__socmed {
-        margin: 0 .8rem;
+        margin: 0 0.8rem;
     }
 
     &__socmed-link {
         display: block;
-        
+
         &:hover {
             #{ $self }__socmed-icon {
                 color: $cyan;
@@ -91,6 +92,7 @@
     &__socmed-icon {
         color: $white;
         font-size: 1.5rem;
+        transition: color 0.3s ease;
     }
 
     &__sr-only {
@@ -101,9 +103,11 @@
 
 .attribution {
     font-family: $font-family;
-    font-size: 11px; 
+    font-size: 11px;
     text-align: center;
     padding: 1rem 0;
 
-    a { color: hsl(228, 45%, 44%); }
+    a {
+        color: hsl(228, 45%, 44%);
+    }
 }
