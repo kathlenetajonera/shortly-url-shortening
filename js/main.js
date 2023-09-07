@@ -7,6 +7,7 @@ const inputField = document.querySelector(".form__input");
 const submitBtn = document.querySelector(".button--form");
 const linksContainer = document.querySelector(".shortened-links");
 const footerLogo = document.querySelector(".footer__logo-link");
+const ctaButtons = document.querySelectorAll(".button--cta");
 const savedURLs = [];
 
 let windowWidth = window.innerWidth;
@@ -15,9 +16,9 @@ let windowWidth = window.innerWidth;
 if (localStorage.getItem("savedURLs")) {
     const savedItem = JSON.parse(localStorage.getItem("savedURLs"));
 
-    savedItem.forEach(item => {
-        displayLinks(item.url, item)
-    })
+    savedItem.forEach((item) => {
+        displayLinks(item.url, item);
+    });
 }
 
 navicon.addEventListener("click", toggleMobileNav);
@@ -28,9 +29,9 @@ inputField.addEventListener("input", () => {
     if (inputField.nextElementSibling) {
         inputField.nextElementSibling.remove();
     }
-})
+});
 
-submitBtn.addEventListener("click", e => {
+submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
     if (inputField.value) {
@@ -40,7 +41,7 @@ submitBtn.addEventListener("click", e => {
     }
 });
 
-footerLogo.addEventListener("click", e => {
+footerLogo.addEventListener("click", (e) => {
     e.preventDefault();
 
     smoothScroll(".navbar");
@@ -59,13 +60,21 @@ window.addEventListener("resize", () => {
     }
 });
 
+ctaButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        smoothScroll(".form");
+    });
+});
+
 const setAriaAttribute = (block, attr, bool) => block.setAttribute(attr, bool);
 
-const disableScrolling = () => document.body.style.position = "fixed";
+const disableScrolling = () => (document.body.style.position = "fixed");
 
-const enableScrolling = () => document.body.style.position = "";
+const enableScrolling = () => (document.body.style.position = "");
 
-const clearInputField = () => inputField.value = ""; inputField.focus();
+const clearInputField = () => (inputField.value = "");
+inputField.focus();
 
 function toggleMobileNav() {
     const isOpen = navicon.getAttribute("aria-expanded");
@@ -77,9 +86,8 @@ function toggleMobileNav() {
         enableScrolling();
 
         setTimeout(() => {
-            removeClass(mobileMenu, "close")
+            removeClass(mobileMenu, "close");
         }, 1000);
-
     } else {
         setAriaAttribute(navicon, "aria-expanded", "true");
         addClass(navicon, "open");
@@ -96,7 +104,7 @@ async function fetchData(url) {
 
     if (data.error_code === 2) {
         hideLoading();
-        displayError("invalid")
+        displayError("invalid");
     } else {
         displayLinks(url, shortLinks);
         clearInputField();
@@ -117,7 +125,7 @@ function displayLinks(url, data) {
             <button class="button button--copy" onclick="copyURL(this)">Copy</button>
         </div>
     </div>
-    `
+    `;
 
     if (linksContainer.childElementCount < 3) {
         linksContainer.insertAdjacentHTML("afterbegin", shortLinkMarkUp);
@@ -154,24 +162,33 @@ function displayError(errType) {
 
     if (formField.childElementCount < 2) {
         if (errType === "empty") {
-            formField.insertAdjacentHTML("beforeend", `
+            formField.insertAdjacentHTML(
+                "beforeend",
+                `
             <p class="form__error-text">Please add a link</p>
-            `)
+            `
+            );
         } else if (errType === "invalid") {
-            formField.insertAdjacentHTML("beforeend", `
+            formField.insertAdjacentHTML(
+                "beforeend",
+                `
             <p class="form__error-text">Invalid url. Please try again.</p>
-            `)
+            `
+            );
         }
     }
 }
 
 function showLoading() {
-    featuresContainer.insertAdjacentHTML("afterbegin", `
+    featuresContainer.insertAdjacentHTML(
+        "afterbegin",
+        `
     <div class="loading"></div> 
-    `)
+    `
+    );
 }
 
-function hideLoading () {
+function hideLoading() {
     const loading = document.querySelector(".loading");
 
     if (loading) {
@@ -182,8 +199,8 @@ function hideLoading () {
 function saveToStorage(url, shortLink) {
     let savedURL = {
         url: url,
-        short_link: shortLink
-    }
+        short_link: shortLink,
+    };
 
     savedURLs.push(savedURL);
     localStorage.setItem("savedURLs", JSON.stringify(savedURLs));
@@ -193,33 +210,34 @@ function copyURL(selectedBtn) {
     const shortLink = selectedBtn.previousElementSibling.textContent;
     const inputElem = document.createElement("input");
 
-    inputElem.className = "hidden"
+    inputElem.className = "hidden";
     inputElem.value = shortLink;
 
-    linksContainer.appendChild(inputElem)
+    linksContainer.appendChild(inputElem);
 
     inputElem.select();
     document.execCommand("copy");
 
     addClass(selectedBtn, "copied");
-    selectedBtn.textContent = "Copied!"
+    selectedBtn.textContent = "Copied!";
 
     setTimeout(() => {
         removeClass(selectedBtn, "copied");
         selectedBtn.textContent = "Copy";
-    }, 1500)
+    }, 1500);
 }
 
 function smoothScroll(target) {
     const targetSection = document.querySelector(target);
-    const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+    const targetPosition =
+        targetSection.getBoundingClientRect().top + window.pageYOffset;
     const startPosition = window.pageYOffset;
     const distance = targetPosition - startPosition;
     let duration = 1000;
     let startTime;
 
     function animation(currentTime) {
-        if (startTime === undefined)  startTime = currentTime;
+        if (startTime === undefined) startTime = currentTime;
 
         const timeElapsed = currentTime - startTime;
         let animate = ease(timeElapsed, startPosition, distance, duration);
@@ -227,16 +245,16 @@ function smoothScroll(target) {
         window.scrollTo(0, animate);
 
         if (timeElapsed < duration) {
-            requestAnimationFrame(animation)
+            requestAnimationFrame(animation);
         }
     }
 
     function ease(t, b, c, d) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t + b;
+        t /= d / 2;
+        if (t < 1) return (c / 2) * t * t + b;
         t--;
-        return -c/2 * (t*(t-2) - 1) + b;
-    };
+        return (-c / 2) * (t * (t - 2) - 1) + b;
+    }
 
     requestAnimationFrame(animation);
 }
