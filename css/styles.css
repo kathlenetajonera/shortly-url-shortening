@@ -70,7 +70,9 @@ body {
   overflow-x: hidden;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -191,6 +193,7 @@ body {
   background-color: hsl(180, 66%, 49%);
   padding: 0.8rem 2rem;
   display: inline-block;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 }
 .button:hover {
@@ -406,6 +409,7 @@ body {
   text-decoration: none;
   color: rgb(255, 255, 255);
   font-weight: 700;
+  transition: color 0.3s ease;
 }
 .navbar__link:hover {
   color: hsl(0, 0%, 75%);
@@ -700,6 +704,7 @@ body {
   font-family: "Poppins", sans-serif;
   text-decoration: none;
   color: hsl(0, 0%, 75%);
+  transition: color 0.3s ease;
 }
 .footer__link:hover {
   color: hsl(180, 66%, 49%);
@@ -736,6 +741,7 @@ body {
 .footer__socmed-icon {
   color: rgb(255, 255, 255);
   font-size: 1.5rem;
+  transition: color 0.3s ease;
 }
 .footer__sr-only {
   position: absolute;

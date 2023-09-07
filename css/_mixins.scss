@@ -2,7 +2,7 @@ $mediaBreakpoints: (
     mobile: 23.4375rem,
     tablet: 48rem,
     desktop-sm: 64rem,
-    desktop-md: 75rem
+    desktop-md: 75rem,
 );
 
 @mixin media-query($size) {
@@ -33,13 +33,13 @@ $mediaBreakpoints: (
 @mixin link-text($color) {
     font-family: $font-family;
     text-decoration: none;
-    
+
     @if ($color == gr) {
         color: $gray;
     } @else if ($color == wh) {
         color: $white;
     }
-} 
+}
 
 @keyframes menu-open {
     0% {

@@ -26,11 +26,11 @@
                 &:first-child {
                     transform: rotate(45deg);
                 }
-    
+
                 &:nth-child(2) {
                     opacity: 0;
                 }
-    
+
                 &:last-child {
                     transform: rotate(-45deg);
                 }
@@ -45,11 +45,11 @@
     &__burger {
         display: block;
         width: 1.125rem;
-        height: .1875rem;
+        height: 0.1875rem;
         background-color: $grayishViolet;
-        margin-bottom: .1875rem;
+        margin-bottom: 0.1875rem;
         border-radius: 1rem;
-        transition: .3s ease-in-out;
+        transition: 0.3s ease-in-out;
 
         &:first-child {
             transform-origin: 1px;
@@ -71,16 +71,16 @@
         width: 90%;
         text-align: center;
         padding: 1rem;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
 
         &--open {
             display: block;
-            animation: menu-open .3s forwards;
+            animation: menu-open 0.3s forwards;
         }
 
         &--close {
             display: block;
-            animation: menu-close .3s;
+            animation: menu-close 0.3s;
         }
 
         @include media-query(tablet) {
@@ -104,10 +104,10 @@
     }
 
     &__item {
-        padding: .8rem 0;
+        padding: 0.8rem 0;
 
         @include media-query(tablet) {
-            padding: 0 .5rem;
+            padding: 0 0.5rem;
 
             &:last-child {
                 padding-right: 0;
@@ -118,6 +118,7 @@
     &__link {
         @include link-text(wh);
         font-weight: 700;
+        transition: color 0.3s ease;
 
         &:hover {
             color: $gray;
@@ -125,7 +126,7 @@
 
         @include media-query(tablet) {
             color: $grayishViolet;
-            font-size: .9rem;
+            font-size: 0.9rem;
             font-weight: 600;
 
             &:hover {
@@ -141,6 +142,6 @@
 
         @include media-query(tablet) {
             display: none;
-        } 
+        }
     }
 }
